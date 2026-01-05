@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError, InternalServerError } from "../utils/errors/app.error.js";
+import { InternalServerError } from "../utils/errors/app.error.js";
 import logger from "../config/logger.config.js";
 
 export const pingHandler = async (
   _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): Promise<void> => {
   try {
     logger.info("pong");

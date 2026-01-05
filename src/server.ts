@@ -2,6 +2,7 @@ import express from "express";
 import v1Router from "./routers/v1/index.router.js";
 import { serverConfig } from "./config/index.js";
 import {
+  appErrorHandler,
   // appErrorHandler,
   genericErrorHandler,
 } from "./middlewares/error.middleware.js";
@@ -24,7 +25,7 @@ app.use("/api/v1", v1Router);
  * Add the error handler middleware
  */
 
-// app.use(appErrorHandler);
+app.use(appErrorHandler);
 app.use(genericErrorHandler);
 
 app.listen(process.env.PORT, () => {
