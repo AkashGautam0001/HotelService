@@ -43,9 +43,6 @@
     "skipLibCheck": true
   },
 
-  "include": [
-    "src/**/*.ts",
-    "src/db/migrations/20260108030534-create-hotel-table.js"
-  ],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
