@@ -1,12 +1,10 @@
 import express from "express";
 import v1Router from "./routers/v1/index.router.js";
 import { serverConfig } from "./config/index.js";
-import {
-  appErrorHandler,
-  genericErrorHandler,
-} from "./middlewares/error.middleware.js";
+import { appErrorHandler, genericErrorHandler } from "./middlewares/error.middleware.js";
 import logger from "./config/logger.config.js";
 import { attachCorrelationIdMiddleware } from "./middlewares/correlation.middleware.js";
+import sequelize from "./db/models/sequelize.js";
 
 const app = express();
 
@@ -27,7 +25,13 @@ app.use("/api/v1", v1Router);
 app.use(appErrorHandler);
 app.use(genericErrorHandler);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, async () => {
   logger.info(`Server running at http://localhost:${serverConfig.PORT}`);
   logger.info("Press Ctrl+C to stop server");
+  try {
+    await sequelize.authenticate();
+    logger.info("Database connection has been established successfully.");
+  } catch (error) {
+    logger.error("Unable to connect to the database:", error);
+  }
 });

@@ -1,30 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../utils/errors/app.error.js";
 
-export const appErrorHandler = (
-  err: AppError,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
-) => {
-  console.log(err);
-
+export const appErrorHandler = (err: AppError, _req: Request, res: Response, _next: NextFunction) => {
   res.status(err.statusCode).json({
     success: false,
-    message: err.message,
+    message: err.message
   });
 };
 
-export const genericErrorHandler = (
-  err: Error,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
-) => {
-  console.log(err);
-
+export const genericErrorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({
     success: false,
-    message: "Internal Server Error",
+    message: err.message
   });
 };
